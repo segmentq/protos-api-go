@@ -44,7 +44,8 @@
 - [field.proto](#field-proto)
     - [FieldDefinition](#api-FieldDefinition)
   
-    - [Field](#api-Field)
+    - [GeoType](#api-GeoType)
+    - [ScalarType](#api-ScalarType)
   
 - [index.proto](#index-proto)
     - [AddIndexRequest](#api-AddIndexRequest)
@@ -637,7 +638,8 @@ Empty
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
-| field | [Field](#api-Field) |  |  |
+| scalar | [ScalarType](#api-ScalarType) |  |  |
+| geo | [GeoType](#api-GeoType) |  |  |
 | is_primary | [bool](#bool) |  |  |
 | repeated | [bool](#bool) |  | Allow arrays |
 | fields | [FieldDefinition](#api-FieldDefinition) | repeated | Allow nested structure |
@@ -649,36 +651,46 @@ Empty
  
 
 
-<a name="api-Field"></a>
+<a name="api-GeoType"></a>
 
-### Field
+### GeoType
 
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| FIELD_DEFINITION_UNDEFINED | 0 |  |
-| FIELD_DEFINITION_STRING | 10 | STRINGs |
-| FIELD_DEFINITION_INT | 20 | INTs |
-| FIELD_DEFINITION_INT8 | 21 |  |
-| FIELD_DEFINITION_INT16 | 22 |  |
-| FIELD_DEFINITION_INT32 | 23 |  |
-| FIELD_DEFINITION_INT64 | 24 |  |
-| FIELD_DEFINITION_UINT | 30 | UINTs |
-| FIELD_DEFINITION_UINT8 | 31 |  |
-| FIELD_DEFINITION_UINT16 | 32 |  |
-| FIELD_DEFINITION_UINT32 | 33 |  |
-| FIELD_DEFINITION_UINT64 | 34 |  |
-| FIELD_DEFINITION_FLOAT | 40 | FLOATs |
-| FIELD_DEFINITION_FLOAT32 | 41 |  |
-| FIELD_DEFINITION_FLOAT64 | 42 |  |
-| FIELD_DEFINITION_BOOL | 50 | BOOL |
-| FIELD_DEFINITION_BLOB | 60 | BLOB |
-| FIELD_DEFINITION_RANGE | 70 | RANGEs |
-| FIELD_DEFINITION_RANGE_INT | 71 |  |
-| FIELD_DEFINITION_RANGE_FLOAT | 72 |  |
-| FIELD_DEFINITION_GEO | 80 | GEOs |
-| FIELD_DEFINITION_GEO_RECT | 81 |  |
-| FIELD_DEFINITION_GEO_POINT | 82 |  |
+| DATA_TYPE_RANGE | 0 | RANGEs |
+| DATA_TYPE_RANGE_INT | 1 |  |
+| DATA_TYPE_RANGE_FLOAT | 2 |  |
+| DATA_TYPE_GEO | 10 | GEOs |
+| DATA_TYPE_GEO_RECT | 11 |  |
+| DATA_TYPE_GEO_POINT | 12 |  |
+
+
+
+<a name="api-ScalarType"></a>
+
+### ScalarType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| DATA_TYPE_UNDEFINED | 0 |  |
+| DATA_TYPE_STRING | 10 | STRINGs |
+| DATA_TYPE_INT | 20 | INTs |
+| DATA_TYPE_INT8 | 21 |  |
+| DATA_TYPE_INT16 | 22 |  |
+| DATA_TYPE_INT32 | 23 |  |
+| DATA_TYPE_INT64 | 24 |  |
+| DATA_TYPE_UINT | 30 | UINTs |
+| DATA_TYPE_UINT8 | 31 |  |
+| DATA_TYPE_UINT16 | 32 |  |
+| DATA_TYPE_UINT32 | 33 |  |
+| DATA_TYPE_UINT64 | 34 |  |
+| DATA_TYPE_FLOAT | 40 | FLOATs |
+| DATA_TYPE_FLOAT32 | 41 |  |
+| DATA_TYPE_FLOAT64 | 42 |  |
+| DATA_TYPE_BOOL | 50 | BOOL |
+| DATA_TYPE_BLOB | 60 | BLOB |
 
 
  

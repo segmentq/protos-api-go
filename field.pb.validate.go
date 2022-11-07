@@ -59,8 +59,6 @@ func (m *FieldDefinition) validate(all bool) error {
 
 	// no validation rules for Name
 
-	// no validation rules for Field
-
 	// no validation rules for IsPrimary
 
 	// no validation rules for Repeated
@@ -96,6 +94,16 @@ func (m *FieldDefinition) validate(all bool) error {
 				}
 			}
 		}
+
+	}
+
+	switch m.DataType.(type) {
+
+	case *FieldDefinition_Scalar:
+		// no validation rules for Scalar
+
+	case *FieldDefinition_Geo:
+		// no validation rules for Geo
 
 	}
 
