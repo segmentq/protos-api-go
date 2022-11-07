@@ -61,6 +61,8 @@ func (m *FieldDefinition) validate(all bool) error {
 
 	// no validation rules for Field
 
+	// no validation rules for IsPrimary
+
 	// no validation rules for Repeated
 
 	for idx, item := range m.GetFields() {

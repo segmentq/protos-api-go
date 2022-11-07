@@ -54,7 +54,6 @@
     - [DescribeIndexRequest](#api-DescribeIndexRequest)
     - [DescribeIndexResponse](#api-DescribeIndexResponse)
     - [IndexDefinition](#api-IndexDefinition)
-    - [IndexMeta](#api-IndexMeta)
     - [ListIndexesRequest](#api-ListIndexesRequest)
     - [ListIndexesResponse](#api-ListIndexesResponse)
   
@@ -639,6 +638,7 @@ Empty
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | field | [Field](#api-Field) |  |  |
+| is_primary | [bool](#bool) |  |  |
 | repeated | [bool](#bool) |  | Allow arrays |
 | fields | [FieldDefinition](#api-FieldDefinition) | repeated | Allow nested structure |
 
@@ -704,8 +704,6 @@ Empty
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| primary_key | [string](#string) |  |  |
 | index | [IndexDefinition](#api-IndexDefinition) |  |  |
 
 
@@ -721,8 +719,7 @@ Empty
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| meta | [IndexMeta](#api-IndexMeta) |  |  |
+| ok | [bool](#bool) |  |  |
 
 
 
@@ -752,8 +749,7 @@ Empty
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| meta | [IndexMeta](#api-IndexMeta) |  |  |
+| index | [IndexDefinition](#api-IndexDefinition) |  |  |
 
 
 
@@ -783,9 +779,7 @@ Empty
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
 | index | [IndexDefinition](#api-IndexDefinition) |  |  |
-| meta | [IndexMeta](#api-IndexMeta) |  |  |
 
 
 
@@ -800,25 +794,11 @@ Empty
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fields | [FieldDefinition](#api-FieldDefinition) | repeated |  |
-
-
-
-
-
-
-<a name="api-IndexMeta"></a>
-
-### IndexMeta
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| primary_key | [string](#string) |  |  |
+| name | [string](#string) |  |  |
 | status | [Status](#api-Status) |  |  |
-| created | [string](#string) |  |  |
-| updated | [string](#string) |  |  |
+| fields | [FieldDefinition](#api-FieldDefinition) | repeated |  |
+| created | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| updated | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
@@ -834,10 +814,10 @@ Empty
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pattern | [string](#string) |  |  |
-| created_after | [string](#string) |  |  |
-| created_before | [string](#string) |  |  |
-| updated_after | [string](#string) |  |  |
-| updated_before | [string](#string) |  |  |
+| created_after | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| created_before | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| updated_after | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| updated_before | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 

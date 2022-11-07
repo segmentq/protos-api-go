@@ -57,6 +57,10 @@ func (m *IndexDefinition) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
+	// no validation rules for Status
+
 	for idx, item := range m.GetFields() {
 		_, _ = idx, item
 
@@ -89,6 +93,64 @@ func (m *IndexDefinition) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, IndexDefinitionValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, IndexDefinitionValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return IndexDefinitionValidationError{
+				field:  "Created",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, IndexDefinitionValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, IndexDefinitionValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return IndexDefinitionValidationError{
+				field:  "Updated",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -169,113 +231,6 @@ var _ interface {
 	ErrorName() string
 } = IndexDefinitionValidationError{}
 
-// Validate checks the field values on IndexMeta with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *IndexMeta) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on IndexMeta with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in IndexMetaMultiError, or nil
-// if none found.
-func (m *IndexMeta) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *IndexMeta) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for PrimaryKey
-
-	// no validation rules for Status
-
-	// no validation rules for Created
-
-	// no validation rules for Updated
-
-	if len(errors) > 0 {
-		return IndexMetaMultiError(errors)
-	}
-
-	return nil
-}
-
-// IndexMetaMultiError is an error wrapping multiple validation errors returned
-// by IndexMeta.ValidateAll() if the designated constraints aren't met.
-type IndexMetaMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m IndexMetaMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m IndexMetaMultiError) AllErrors() []error { return m }
-
-// IndexMetaValidationError is the validation error returned by
-// IndexMeta.Validate if the designated constraints aren't met.
-type IndexMetaValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e IndexMetaValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e IndexMetaValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e IndexMetaValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e IndexMetaValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e IndexMetaValidationError) ErrorName() string { return "IndexMetaValidationError" }
-
-// Error satisfies the builtin error interface
-func (e IndexMetaValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sIndexMeta.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = IndexMetaValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = IndexMetaValidationError{}
-
 // Validate checks the field values on AddIndexRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -297,10 +252,6 @@ func (m *AddIndexRequest) validate(all bool) error {
 	}
 
 	var errors []error
-
-	// no validation rules for Name
-
-	// no validation rules for PrimaryKey
 
 	if all {
 		switch v := interface{}(m.GetIndex()).(type) {
@@ -431,36 +382,7 @@ func (m *AddIndexResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
-
-	if all {
-		switch v := interface{}(m.GetMeta()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AddIndexResponseValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AddIndexResponseValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AddIndexResponseValidationError{
-				field:  "Meta",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Ok
 
 	if len(errors) > 0 {
 		return AddIndexResponseMultiError(errors)
@@ -666,8 +588,6 @@ func (m *DescribeIndexResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
-
 	if all {
 		switch v := interface{}(m.GetIndex()).(type) {
 		case interface{ ValidateAll() error }:
@@ -691,35 +611,6 @@ func (m *DescribeIndexResponse) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return DescribeIndexResponseValidationError{
 				field:  "Index",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetMeta()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DescribeIndexResponseValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, DescribeIndexResponseValidationError{
-					field:  "Meta",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DescribeIndexResponseValidationError{
-				field:  "Meta",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -932,14 +823,12 @@ func (m *DeleteIndexResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
-
 	if all {
-		switch v := interface{}(m.GetMeta()).(type) {
+		switch v := interface{}(m.GetIndex()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, DeleteIndexResponseValidationError{
-					field:  "Meta",
+					field:  "Index",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -947,16 +836,16 @@ func (m *DeleteIndexResponse) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, DeleteIndexResponseValidationError{
-					field:  "Meta",
+					field:  "Index",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetMeta()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetIndex()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return DeleteIndexResponseValidationError{
-				field:  "Meta",
+				field:  "Index",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1067,13 +956,121 @@ func (m *ListIndexesRequest) validate(all bool) error {
 
 	// no validation rules for Pattern
 
-	// no validation rules for CreatedAfter
+	if all {
+		switch v := interface{}(m.GetCreatedAfter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "CreatedAfter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "CreatedAfter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAfter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListIndexesRequestValidationError{
+				field:  "CreatedAfter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for CreatedBefore
+	if all {
+		switch v := interface{}(m.GetCreatedBefore()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "CreatedBefore",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "CreatedBefore",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedBefore()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListIndexesRequestValidationError{
+				field:  "CreatedBefore",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for UpdatedAfter
+	if all {
+		switch v := interface{}(m.GetUpdatedAfter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "UpdatedAfter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "UpdatedAfter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedAfter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListIndexesRequestValidationError{
+				field:  "UpdatedAfter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for UpdatedBefore
+	if all {
+		switch v := interface{}(m.GetUpdatedBefore()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "UpdatedBefore",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListIndexesRequestValidationError{
+					field:  "UpdatedBefore",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedBefore()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListIndexesRequestValidationError{
+				field:  "UpdatedBefore",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return ListIndexesRequestMultiError(errors)
