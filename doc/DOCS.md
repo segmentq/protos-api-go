@@ -8,10 +8,6 @@
     - [DeleteSegmentResponse](#api-DeleteSegmentResponse)
     - [GetSegmentRequest](#api-GetSegmentRequest)
     - [GetSegmentResponse](#api-GetSegmentResponse)
-    - [MatchSegmentKeyRequest](#api-MatchSegmentKeyRequest)
-    - [MatchSegmentKeyResponse](#api-MatchSegmentKeyResponse)
-    - [MatchSegmentRequest](#api-MatchSegmentRequest)
-    - [MatchSegmentResponse](#api-MatchSegmentResponse)
     - [PutSegmentRequest](#api-PutSegmentRequest)
     - [PutSegmentResponse](#api-PutSegmentResponse)
     - [Segment](#api-Segment)
@@ -59,6 +55,14 @@
     - [ListIndexesResponse](#api-ListIndexesResponse)
   
     - [Status](#api-Status)
+  
+- [lookup.proto](#lookup-proto)
+    - [Lookup](#api-Lookup)
+    - [LookupField](#api-LookupField)
+    - [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest)
+    - [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse)
+    - [LookupSegmentRequest](#api-LookupSegmentRequest)
+    - [LookupSegmentResponse](#api-LookupSegmentResponse)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -122,68 +126,6 @@ Empty
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | segment | [Segment](#api-Segment) |  |  |
-
-
-
-
-
-
-<a name="api-MatchSegmentKeyRequest"></a>
-
-### MatchSegmentKeyRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| index | [string](#string) |  |  |
-| fields | [SegmentField](#api-SegmentField) | repeated |  |
-
-
-
-
-
-
-<a name="api-MatchSegmentKeyResponse"></a>
-
-### MatchSegmentKeyResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| results | [SegmentField](#api-SegmentField) | repeated |  |
-
-
-
-
-
-
-<a name="api-MatchSegmentRequest"></a>
-
-### MatchSegmentRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| index | [string](#string) |  |  |
-| fields | [SegmentField](#api-SegmentField) | repeated |  |
-
-
-
-
-
-
-<a name="api-MatchSegmentResponse"></a>
-
-### MatchSegmentResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| results | [Segment](#api-Segment) | repeated |  |
 
 
 
@@ -615,8 +557,8 @@ Empty
 | PutSegment | [PutSegmentRequest](#api-PutSegmentRequest) | [PutSegmentResponse](#api-PutSegmentResponse) |  |
 | GetSegment | [GetSegmentRequest](#api-GetSegmentRequest) | [GetSegmentResponse](#api-GetSegmentResponse) |  |
 | DeleteSegment | [DeleteSegmentRequest](#api-DeleteSegmentRequest) | [DeleteSegmentResponse](#api-DeleteSegmentResponse) |  |
-| MatchSegment | [MatchSegmentRequest](#api-MatchSegmentRequest) | [MatchSegmentResponse](#api-MatchSegmentResponse) |  |
-| MatchSegmentKey | [MatchSegmentKeyRequest](#api-MatchSegmentKeyRequest) | [MatchSegmentKeyResponse](#api-MatchSegmentKeyResponse) |  |
+| LookupSegment | [LookupSegmentRequest](#api-LookupSegmentRequest) | [LookupSegmentResponse](#api-LookupSegmentResponse) |  |
+| LookupSegmentKey | [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest) | [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse) |  |
 
  
 
@@ -866,6 +808,132 @@ Empty
 | INDEX_STATUS_UPDATING | 15 |  |
 | INDEX_STATUS_DELETING | 20 |  |
 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="lookup-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## lookup.proto
+
+
+
+<a name="api-Lookup"></a>
+
+### Lookup
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| fields | [LookupField](#api-LookupField) | repeated |  |
+
+
+
+
+
+
+<a name="api-LookupField"></a>
+
+### LookupField
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| string_value | [SegmentFieldString](#api-SegmentFieldString) |  |  |
+| repeated_string_value | [SegmentFieldRepeatedString](#api-SegmentFieldRepeatedString) |  |  |
+| int_value | [SegmentFieldInt](#api-SegmentFieldInt) |  |  |
+| repeated_int_value | [SegmentFieldRepeatedInt](#api-SegmentFieldRepeatedInt) |  |  |
+| uint_value | [SegmentFieldUInt](#api-SegmentFieldUInt) |  |  |
+| repeated_uint_value | [SegmentFieldRepeatedUInt](#api-SegmentFieldRepeatedUInt) |  |  |
+| float_value | [SegmentFieldFloat](#api-SegmentFieldFloat) |  |  |
+| repeated_float_value | [SegmentFieldRepeatedFloat](#api-SegmentFieldRepeatedFloat) |  |  |
+| bool_value | [SegmentFieldBool](#api-SegmentFieldBool) |  |  |
+| repeated_bool_value | [SegmentFieldRepeatedBool](#api-SegmentFieldRepeatedBool) |  |  |
+| range_int_value | [SegmentFieldRangeInt](#api-SegmentFieldRangeInt) |  |  |
+| repeated_range_int_value | [SegmentFieldRepeatedRangeInt](#api-SegmentFieldRepeatedRangeInt) |  |  |
+| range_float_value | [SegmentFieldRangeFloat](#api-SegmentFieldRangeFloat) |  |  |
+| repeated_range_float_value | [SegmentFieldRepeatedRangeFloat](#api-SegmentFieldRepeatedRangeFloat) |  |  |
+| geo_point_value | [SegmentFieldGeoPoint](#api-SegmentFieldGeoPoint) |  |  |
+| repeated_geo_point_value | [SegmentFieldRepeatedGeoPoint](#api-SegmentFieldRepeatedGeoPoint) |  |  |
+| geo_rect_value | [SegmentFieldGeoRect](#api-SegmentFieldGeoRect) |  |  |
+| repeated_geo_rect_value | [SegmentFieldRepeatedGeoRect](#api-SegmentFieldRepeatedGeoRect) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentKeyRequest"></a>
+
+### LookupSegmentKeyRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| index | [string](#string) |  |  |
+| lookup | [Lookup](#api-Lookup) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentKeyResponse"></a>
+
+### LookupSegmentKeyResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| results | [SegmentField](#api-SegmentField) | repeated |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentRequest"></a>
+
+### LookupSegmentRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| index | [string](#string) |  |  |
+| lookup | [Lookup](#api-Lookup) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentResponse"></a>
+
+### LookupSegmentResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| results | [Segment](#api-Segment) | repeated |  |
+
+
+
+
+
+ 
 
  
 
