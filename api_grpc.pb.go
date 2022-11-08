@@ -219,8 +219,8 @@ type SegmentServiceClient interface {
 	PutSegment(ctx context.Context, in *PutSegmentRequest, opts ...grpc.CallOption) (*PutSegmentResponse, error)
 	GetSegment(ctx context.Context, in *GetSegmentRequest, opts ...grpc.CallOption) (*GetSegmentResponse, error)
 	DeleteSegment(ctx context.Context, in *DeleteSegmentRequest, opts ...grpc.CallOption) (*DeleteSegmentResponse, error)
-	MatchSegment(ctx context.Context, in *MatchSegmentRequest, opts ...grpc.CallOption) (*MatchSegmentResponse, error)
-	MatchSegmentKey(ctx context.Context, in *MatchSegmentKeyRequest, opts ...grpc.CallOption) (*MatchSegmentKeyResponse, error)
+	LookupSegment(ctx context.Context, in *LookupSegmentRequest, opts ...grpc.CallOption) (*LookupSegmentResponse, error)
+	LookupSegmentKey(ctx context.Context, in *LookupSegmentKeyRequest, opts ...grpc.CallOption) (*LookupSegmentKeyResponse, error)
 }
 
 type segmentServiceClient struct {
@@ -258,18 +258,18 @@ func (c *segmentServiceClient) DeleteSegment(ctx context.Context, in *DeleteSegm
 	return out, nil
 }
 
-func (c *segmentServiceClient) MatchSegment(ctx context.Context, in *MatchSegmentRequest, opts ...grpc.CallOption) (*MatchSegmentResponse, error) {
-	out := new(MatchSegmentResponse)
-	err := c.cc.Invoke(ctx, "/api.SegmentService/MatchSegment", in, out, opts...)
+func (c *segmentServiceClient) LookupSegment(ctx context.Context, in *LookupSegmentRequest, opts ...grpc.CallOption) (*LookupSegmentResponse, error) {
+	out := new(LookupSegmentResponse)
+	err := c.cc.Invoke(ctx, "/api.SegmentService/LookupSegment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *segmentServiceClient) MatchSegmentKey(ctx context.Context, in *MatchSegmentKeyRequest, opts ...grpc.CallOption) (*MatchSegmentKeyResponse, error) {
-	out := new(MatchSegmentKeyResponse)
-	err := c.cc.Invoke(ctx, "/api.SegmentService/MatchSegmentKey", in, out, opts...)
+func (c *segmentServiceClient) LookupSegmentKey(ctx context.Context, in *LookupSegmentKeyRequest, opts ...grpc.CallOption) (*LookupSegmentKeyResponse, error) {
+	out := new(LookupSegmentKeyResponse)
+	err := c.cc.Invoke(ctx, "/api.SegmentService/LookupSegmentKey", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -283,8 +283,8 @@ type SegmentServiceServer interface {
 	PutSegment(context.Context, *PutSegmentRequest) (*PutSegmentResponse, error)
 	GetSegment(context.Context, *GetSegmentRequest) (*GetSegmentResponse, error)
 	DeleteSegment(context.Context, *DeleteSegmentRequest) (*DeleteSegmentResponse, error)
-	MatchSegment(context.Context, *MatchSegmentRequest) (*MatchSegmentResponse, error)
-	MatchSegmentKey(context.Context, *MatchSegmentKeyRequest) (*MatchSegmentKeyResponse, error)
+	LookupSegment(context.Context, *LookupSegmentRequest) (*LookupSegmentResponse, error)
+	LookupSegmentKey(context.Context, *LookupSegmentKeyRequest) (*LookupSegmentKeyResponse, error)
 }
 
 // UnimplementedSegmentServiceServer should be embedded to have forward compatible implementations.
@@ -300,11 +300,11 @@ func (UnimplementedSegmentServiceServer) GetSegment(context.Context, *GetSegment
 func (UnimplementedSegmentServiceServer) DeleteSegment(context.Context, *DeleteSegmentRequest) (*DeleteSegmentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSegment not implemented")
 }
-func (UnimplementedSegmentServiceServer) MatchSegment(context.Context, *MatchSegmentRequest) (*MatchSegmentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MatchSegment not implemented")
+func (UnimplementedSegmentServiceServer) LookupSegment(context.Context, *LookupSegmentRequest) (*LookupSegmentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookupSegment not implemented")
 }
-func (UnimplementedSegmentServiceServer) MatchSegmentKey(context.Context, *MatchSegmentKeyRequest) (*MatchSegmentKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MatchSegmentKey not implemented")
+func (UnimplementedSegmentServiceServer) LookupSegmentKey(context.Context, *LookupSegmentKeyRequest) (*LookupSegmentKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookupSegmentKey not implemented")
 }
 
 // UnsafeSegmentServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -372,38 +372,38 @@ func _SegmentService_DeleteSegment_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SegmentService_MatchSegment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MatchSegmentRequest)
+func _SegmentService_LookupSegment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupSegmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SegmentServiceServer).MatchSegment(ctx, in)
+		return srv.(SegmentServiceServer).LookupSegment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.SegmentService/MatchSegment",
+		FullMethod: "/api.SegmentService/LookupSegment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SegmentServiceServer).MatchSegment(ctx, req.(*MatchSegmentRequest))
+		return srv.(SegmentServiceServer).LookupSegment(ctx, req.(*LookupSegmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SegmentService_MatchSegmentKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MatchSegmentKeyRequest)
+func _SegmentService_LookupSegmentKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupSegmentKeyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SegmentServiceServer).MatchSegmentKey(ctx, in)
+		return srv.(SegmentServiceServer).LookupSegmentKey(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.SegmentService/MatchSegmentKey",
+		FullMethod: "/api.SegmentService/LookupSegmentKey",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SegmentServiceServer).MatchSegmentKey(ctx, req.(*MatchSegmentKeyRequest))
+		return srv.(SegmentServiceServer).LookupSegmentKey(ctx, req.(*LookupSegmentKeyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -428,12 +428,12 @@ var SegmentService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SegmentService_DeleteSegment_Handler,
 		},
 		{
-			MethodName: "MatchSegment",
-			Handler:    _SegmentService_MatchSegment_Handler,
+			MethodName: "LookupSegment",
+			Handler:    _SegmentService_LookupSegment_Handler,
 		},
 		{
-			MethodName: "MatchSegmentKey",
-			Handler:    _SegmentService_MatchSegmentKey_Handler,
+			MethodName: "LookupSegmentKey",
+			Handler:    _SegmentService_LookupSegmentKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
