@@ -1,4 +1,4 @@
-module api
+module github.com/segmentq/protos-api-go/api
 
 go 1.19
 
