@@ -184,6 +184,7 @@ type FieldDefinition struct {
 
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Types that are assignable to DataType:
+	//
 	//	*FieldDefinition_Scalar
 	//	*FieldDefinition_Geo
 	DataType  isFieldDefinition_DataType `protobuf_oneof:"data_type"`

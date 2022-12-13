@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type IndexServiceClient interface {
 	AddIndex(ctx context.Context, in *AddIndexRequest, opts ...grpc.CallOption) (*AddIndexResponse, error)
 	DescribeIndex(ctx context.Context, in *DescribeIndexRequest, opts ...grpc.CallOption) (*DescribeIndexResponse, error)
-	//  rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse);
+	// rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse);
 	DeleteIndex(ctx context.Context, in *DeleteIndexRequest, opts ...grpc.CallOption) (*DeleteIndexResponse, error)
 	ListIndexes(ctx context.Context, in *ListIndexesRequest, opts ...grpc.CallOption) (*ListIndexesResponse, error)
 }
@@ -79,7 +79,7 @@ func (c *indexServiceClient) ListIndexes(ctx context.Context, in *ListIndexesReq
 type IndexServiceServer interface {
 	AddIndex(context.Context, *AddIndexRequest) (*AddIndexResponse, error)
 	DescribeIndex(context.Context, *DescribeIndexRequest) (*DescribeIndexResponse, error)
-	//  rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse);
+	// rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse);
 	DeleteIndex(context.Context, *DeleteIndexRequest) (*DeleteIndexResponse, error)
 	ListIndexes(context.Context, *ListIndexesRequest) (*ListIndexesResponse, error)
 }

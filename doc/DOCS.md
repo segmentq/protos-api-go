@@ -3,6 +3,18 @@
 
 ## Table of Contents
 
+- [api.proto](#api-proto)
+    - [IndexService](#api-IndexService)
+    - [SegmentService](#api-SegmentService)
+  
+- [lookup.proto](#lookup-proto)
+    - [Lookup](#api-Lookup)
+    - [LookupField](#api-LookupField)
+    - [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest)
+    - [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse)
+    - [LookupSegmentRequest](#api-LookupSegmentRequest)
+    - [LookupSegmentResponse](#api-LookupSegmentResponse)
+  
 - [segment.proto](#segment-proto)
     - [DeleteSegmentRequest](#api-DeleteSegmentRequest)
     - [DeleteSegmentResponse](#api-DeleteSegmentResponse)
@@ -33,10 +45,6 @@
     - [SegmentFieldString](#api-SegmentFieldString)
     - [SegmentFieldUInt](#api-SegmentFieldUInt)
   
-- [api.proto](#api-proto)
-    - [IndexService](#api-IndexService)
-    - [SegmentService](#api-SegmentService)
-  
 - [field.proto](#field-proto)
     - [FieldDefinition](#api-FieldDefinition)
   
@@ -56,15 +64,176 @@
   
     - [Status](#api-Status)
   
-- [lookup.proto](#lookup-proto)
-    - [Lookup](#api-Lookup)
-    - [LookupField](#api-LookupField)
-    - [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest)
-    - [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse)
-    - [LookupSegmentRequest](#api-LookupSegmentRequest)
-    - [LookupSegmentResponse](#api-LookupSegmentResponse)
-  
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="api-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api.proto
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="api-IndexService"></a>
+
+### IndexService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| AddIndex | [AddIndexRequest](#api-AddIndexRequest) | [AddIndexResponse](#api-AddIndexResponse) |  |
+| DescribeIndex | [DescribeIndexRequest](#api-DescribeIndexRequest) | [DescribeIndexResponse](#api-DescribeIndexResponse) |  |
+| DeleteIndex | [DeleteIndexRequest](#api-DeleteIndexRequest) | [DeleteIndexResponse](#api-DeleteIndexResponse) | rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse); |
+| ListIndexes | [ListIndexesRequest](#api-ListIndexesRequest) | [ListIndexesResponse](#api-ListIndexesResponse) |  |
+
+
+<a name="api-SegmentService"></a>
+
+### SegmentService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| PutSegment | [PutSegmentRequest](#api-PutSegmentRequest) | [PutSegmentResponse](#api-PutSegmentResponse) |  |
+| GetSegment | [GetSegmentRequest](#api-GetSegmentRequest) | [GetSegmentResponse](#api-GetSegmentResponse) |  |
+| DeleteSegment | [DeleteSegmentRequest](#api-DeleteSegmentRequest) | [DeleteSegmentResponse](#api-DeleteSegmentResponse) |  |
+| LookupSegment | [LookupSegmentRequest](#api-LookupSegmentRequest) | [LookupSegmentResponse](#api-LookupSegmentResponse) |  |
+| LookupSegmentKey | [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest) | [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse) |  |
+
+ 
+
+
+
+<a name="lookup-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## lookup.proto
+
+
+
+<a name="api-Lookup"></a>
+
+### Lookup
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| fields | [LookupField](#api-LookupField) | repeated |  |
+
+
+
+
+
+
+<a name="api-LookupField"></a>
+
+### LookupField
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| string_value | [SegmentFieldString](#api-SegmentFieldString) |  |  |
+| repeated_string_value | [SegmentFieldRepeatedString](#api-SegmentFieldRepeatedString) |  |  |
+| int_value | [SegmentFieldInt](#api-SegmentFieldInt) |  |  |
+| repeated_int_value | [SegmentFieldRepeatedInt](#api-SegmentFieldRepeatedInt) |  |  |
+| uint_value | [SegmentFieldUInt](#api-SegmentFieldUInt) |  |  |
+| repeated_uint_value | [SegmentFieldRepeatedUInt](#api-SegmentFieldRepeatedUInt) |  |  |
+| float_value | [SegmentFieldFloat](#api-SegmentFieldFloat) |  |  |
+| repeated_float_value | [SegmentFieldRepeatedFloat](#api-SegmentFieldRepeatedFloat) |  |  |
+| bool_value | [SegmentFieldBool](#api-SegmentFieldBool) |  |  |
+| repeated_bool_value | [SegmentFieldRepeatedBool](#api-SegmentFieldRepeatedBool) |  |  |
+| range_int_value | [SegmentFieldRangeInt](#api-SegmentFieldRangeInt) |  |  |
+| repeated_range_int_value | [SegmentFieldRepeatedRangeInt](#api-SegmentFieldRepeatedRangeInt) |  |  |
+| range_float_value | [SegmentFieldRangeFloat](#api-SegmentFieldRangeFloat) |  |  |
+| repeated_range_float_value | [SegmentFieldRepeatedRangeFloat](#api-SegmentFieldRepeatedRangeFloat) |  |  |
+| geo_point_value | [SegmentFieldGeoPoint](#api-SegmentFieldGeoPoint) |  |  |
+| repeated_geo_point_value | [SegmentFieldRepeatedGeoPoint](#api-SegmentFieldRepeatedGeoPoint) |  |  |
+| geo_rect_value | [SegmentFieldGeoRect](#api-SegmentFieldGeoRect) |  |  |
+| repeated_geo_rect_value | [SegmentFieldRepeatedGeoRect](#api-SegmentFieldRepeatedGeoRect) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentKeyRequest"></a>
+
+### LookupSegmentKeyRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| index | [string](#string) |  |  |
+| lookup | [Lookup](#api-Lookup) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentKeyResponse"></a>
+
+### LookupSegmentKeyResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| results | [SegmentField](#api-SegmentField) | repeated |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentRequest"></a>
+
+### LookupSegmentRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| index | [string](#string) |  |  |
+| lookup | [Lookup](#api-Lookup) |  |  |
+
+
+
+
+
+
+<a name="api-LookupSegmentResponse"></a>
+
+### LookupSegmentResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| results | [Segment](#api-Segment) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
 
 
 
@@ -521,49 +690,6 @@ Empty
 
 
 
-<a name="api-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api.proto
-
-
- 
-
- 
-
- 
-
-
-<a name="api-IndexService"></a>
-
-### IndexService
-
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| AddIndex | [AddIndexRequest](#api-AddIndexRequest) | [AddIndexResponse](#api-AddIndexResponse) |  |
-| DescribeIndex | [DescribeIndexRequest](#api-DescribeIndexRequest) | [DescribeIndexResponse](#api-DescribeIndexResponse) |  |
-| DeleteIndex | [DeleteIndexRequest](#api-DeleteIndexRequest) | [DeleteIndexResponse](#api-DeleteIndexResponse) | rpc AlterIndex(AlterIndexRequest) returns (AlterIndexResponse); |
-| ListIndexes | [ListIndexesRequest](#api-ListIndexesRequest) | [ListIndexesResponse](#api-ListIndexesResponse) |  |
-
-
-<a name="api-SegmentService"></a>
-
-### SegmentService
-
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| PutSegment | [PutSegmentRequest](#api-PutSegmentRequest) | [PutSegmentResponse](#api-PutSegmentResponse) |  |
-| GetSegment | [GetSegmentRequest](#api-GetSegmentRequest) | [GetSegmentResponse](#api-GetSegmentResponse) |  |
-| DeleteSegment | [DeleteSegmentRequest](#api-DeleteSegmentRequest) | [DeleteSegmentResponse](#api-DeleteSegmentResponse) |  |
-| LookupSegment | [LookupSegmentRequest](#api-LookupSegmentRequest) | [LookupSegmentResponse](#api-LookupSegmentResponse) |  |
-| LookupSegmentKey | [LookupSegmentKeyRequest](#api-LookupSegmentKeyRequest) | [LookupSegmentKeyResponse](#api-LookupSegmentKeyResponse) |  |
-
- 
-
-
-
 <a name="field-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -808,132 +934,6 @@ Empty
 | INDEX_STATUS_UPDATING | 15 |  |
 | INDEX_STATUS_DELETING | 20 |  |
 
-
- 
-
- 
-
- 
-
-
-
-<a name="lookup-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## lookup.proto
-
-
-
-<a name="api-Lookup"></a>
-
-### Lookup
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| fields | [LookupField](#api-LookupField) | repeated |  |
-
-
-
-
-
-
-<a name="api-LookupField"></a>
-
-### LookupField
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| string_value | [SegmentFieldString](#api-SegmentFieldString) |  |  |
-| repeated_string_value | [SegmentFieldRepeatedString](#api-SegmentFieldRepeatedString) |  |  |
-| int_value | [SegmentFieldInt](#api-SegmentFieldInt) |  |  |
-| repeated_int_value | [SegmentFieldRepeatedInt](#api-SegmentFieldRepeatedInt) |  |  |
-| uint_value | [SegmentFieldUInt](#api-SegmentFieldUInt) |  |  |
-| repeated_uint_value | [SegmentFieldRepeatedUInt](#api-SegmentFieldRepeatedUInt) |  |  |
-| float_value | [SegmentFieldFloat](#api-SegmentFieldFloat) |  |  |
-| repeated_float_value | [SegmentFieldRepeatedFloat](#api-SegmentFieldRepeatedFloat) |  |  |
-| bool_value | [SegmentFieldBool](#api-SegmentFieldBool) |  |  |
-| repeated_bool_value | [SegmentFieldRepeatedBool](#api-SegmentFieldRepeatedBool) |  |  |
-| range_int_value | [SegmentFieldRangeInt](#api-SegmentFieldRangeInt) |  |  |
-| repeated_range_int_value | [SegmentFieldRepeatedRangeInt](#api-SegmentFieldRepeatedRangeInt) |  |  |
-| range_float_value | [SegmentFieldRangeFloat](#api-SegmentFieldRangeFloat) |  |  |
-| repeated_range_float_value | [SegmentFieldRepeatedRangeFloat](#api-SegmentFieldRepeatedRangeFloat) |  |  |
-| geo_point_value | [SegmentFieldGeoPoint](#api-SegmentFieldGeoPoint) |  |  |
-| repeated_geo_point_value | [SegmentFieldRepeatedGeoPoint](#api-SegmentFieldRepeatedGeoPoint) |  |  |
-| geo_rect_value | [SegmentFieldGeoRect](#api-SegmentFieldGeoRect) |  |  |
-| repeated_geo_rect_value | [SegmentFieldRepeatedGeoRect](#api-SegmentFieldRepeatedGeoRect) |  |  |
-
-
-
-
-
-
-<a name="api-LookupSegmentKeyRequest"></a>
-
-### LookupSegmentKeyRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| index | [string](#string) |  |  |
-| lookup | [Lookup](#api-Lookup) |  |  |
-
-
-
-
-
-
-<a name="api-LookupSegmentKeyResponse"></a>
-
-### LookupSegmentKeyResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| results | [SegmentField](#api-SegmentField) | repeated |  |
-
-
-
-
-
-
-<a name="api-LookupSegmentRequest"></a>
-
-### LookupSegmentRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| index | [string](#string) |  |  |
-| lookup | [Lookup](#api-Lookup) |  |  |
-
-
-
-
-
-
-<a name="api-LookupSegmentResponse"></a>
-
-### LookupSegmentResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| results | [Segment](#api-Segment) | repeated |  |
-
-
-
-
-
- 
 
  
 

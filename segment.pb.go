@@ -74,6 +74,7 @@ type SegmentField struct {
 
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Types that are assignable to Value:
+	//
 	//	*SegmentField_StringValue
 	//	*SegmentField_RepeatedStringValue
 	//	*SegmentField_IntValue
