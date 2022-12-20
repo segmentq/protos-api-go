@@ -191,9 +191,18 @@ func (m *SegmentField) validate(all bool) error {
 
 	// no validation rules for Name
 
-	switch m.Value.(type) {
-
+	switch v := m.Value.(type) {
 	case *SegmentField_StringValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetStringValue()).(type) {
@@ -225,6 +234,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedStringValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedStringValue()).(type) {
@@ -256,6 +275,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_IntValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetIntValue()).(type) {
@@ -287,6 +316,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedIntValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedIntValue()).(type) {
@@ -318,6 +357,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_UintValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetUintValue()).(type) {
@@ -349,6 +398,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedUintValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedUintValue()).(type) {
@@ -380,6 +439,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_FloatValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetFloatValue()).(type) {
@@ -411,6 +480,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedFloatValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedFloatValue()).(type) {
@@ -442,6 +521,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_BoolValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetBoolValue()).(type) {
@@ -473,6 +562,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedBoolValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedBoolValue()).(type) {
@@ -504,6 +603,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_BlobValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetBlobValue()).(type) {
@@ -535,6 +644,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedBlobValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedBlobValue()).(type) {
@@ -566,6 +685,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RangeIntValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRangeIntValue()).(type) {
@@ -597,6 +726,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedRangeIntValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedRangeIntValue()).(type) {
@@ -628,6 +767,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RangeFloatValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRangeFloatValue()).(type) {
@@ -659,6 +808,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedRangeFloatValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedRangeFloatValue()).(type) {
@@ -690,6 +849,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_GeoPointValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetGeoPointValue()).(type) {
@@ -721,6 +890,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedGeoPointValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedGeoPointValue()).(type) {
@@ -752,6 +931,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_GeoRectValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetGeoRectValue()).(type) {
@@ -783,6 +972,16 @@ func (m *SegmentField) validate(all bool) error {
 		}
 
 	case *SegmentField_RepeatedGeoRectValue:
+		if v == nil {
+			err := SegmentFieldValidationError{
+				field:  "Value",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if all {
 			switch v := interface{}(m.GetRepeatedGeoRectValue()).(type) {
@@ -813,6 +1012,8 @@ func (m *SegmentField) validate(all bool) error {
 			}
 		}
 
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
