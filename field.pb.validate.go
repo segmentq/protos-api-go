@@ -97,14 +97,33 @@ func (m *FieldDefinition) validate(all bool) error {
 
 	}
 
-	switch m.DataType.(type) {
-
+	switch v := m.DataType.(type) {
 	case *FieldDefinition_Scalar:
+		if v == nil {
+			err := FieldDefinitionValidationError{
+				field:  "DataType",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 		// no validation rules for Scalar
-
 	case *FieldDefinition_Geo:
+		if v == nil {
+			err := FieldDefinitionValidationError{
+				field:  "DataType",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 		// no validation rules for Geo
-
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
